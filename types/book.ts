@@ -1,0 +1,24 @@
+import express from 'express';
+
+namespace Book {
+    export interface Item {
+        id: number,
+        title: string,
+        author: string,
+        publicationYear: number,
+    }
+
+    export interface Request extends express.Request {
+        body: {
+            id: number,
+            title: string,
+            author: string,
+            publicationYear: number
+        },
+        query: {
+            name: string,
+            publicationYear: string
+        }
+    }
+}
+export default Book;
