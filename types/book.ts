@@ -20,5 +20,10 @@ namespace Book {
             publicationYear: string
         }
     }
+
+    export interface Response extends express.Response{
+        
+    }
+
 }
 export default Book;

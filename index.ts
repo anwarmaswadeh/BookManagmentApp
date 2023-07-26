@@ -1,4 +1,5 @@
 import express  from 'express';
+import bookRouter from "./routers/book.js";
 
 const app = express();
 const PORT = 3000;
@@ -9,10 +10,7 @@ app.get('/', (req, res) => {
     res.send('Server Up!')
 });
 
-app.use((req, res) =>{
-    res.status(404).send("Your requested somthung I don't have :(")
-
-});
+app.use("/books", bookRouter) 
 
 app.listen(PORT, () => {
     console.log(`App is running and Listening on port ${PORT}`);

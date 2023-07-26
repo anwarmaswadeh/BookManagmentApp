@@ -5,7 +5,7 @@ import Book from '../types/book.js';
 
 const router = express.Router();
 
-router.get('/', (req: express.Request, res: express.Response) => {
+router.get('/', (req: Book.Request, res: Book.Response) => {
     res.send(data);
 });
 
@@ -20,7 +20,7 @@ router.get('/:id', (req, res) => {
     res.send('Book by ID');
 });
 
-router.post('/', (req: express.Request, res: express.Response) => {
+router.post('/', (req: Book.Request, res: Book.Response) => {
     if (!req.body.title || !req.body.id || !req.body.author || !req.body.publicationYear) {
         res.status(400).send("Title ans userId are required!");
         return;
@@ -48,27 +48,20 @@ router.delete('/:id', (req, res) => {
 
 router.get('/', (req: express.Request, res: express.Response) => {
     const bookName = req.query.name;
-    if (!bookName) {
+    const year = req.query.publicationYear;
+    if (!bookName && !year) {
         return res.send(data);
-    } else {
+    } else if(bookName) {
         const result = data.filter(Book => {
             return Book.title.includes(bookName as string)
         });
         return res.send(result);
-    }
-});
-
-router.get('/', (req: express.Request, res: express.Response) => {
-    const year = req.query.publicationYear;
-    if (!year) {
-        return res.send(data);
-    } else {
+    }else if(year){
         const result = data.filter(Year => {
             return Year.publicationYear === Number(year)
         });
         return res.send(result);
     }
 });
-
 
 export default router;

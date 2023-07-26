@@ -5,7 +5,7 @@ router.get('/', (req, res) => {
     res.send(data);
 });
 router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = +req.params.id;
     const book = data.find(it => it.id === id);
     if (book) {
         res.status(200).send(book);
@@ -37,22 +37,17 @@ router.delete('/:id', (req, res) => {
 });
 router.get('/', (req, res) => {
     const bookName = req.query.name;
-    if (!bookName) {
+    const year = req.query.publicationYear;
+    if (!bookName && !year) {
         return res.send(data);
     }
-    else {
+    else if (bookName) {
         const result = data.filter(Book => {
             return Book.title.includes(bookName);
         });
         return res.send(result);
     }
-});
-router.get('/', (req, res) => {
-    const year = req.query.publicationYear;
-    if (!year) {
-        return res.send(data);
-    }
-    else {
+    else if (year) {
         const result = data.filter(Year => {
             return Year.publicationYear === Number(year);
         });
