@@ -51,12 +51,12 @@ router.get('/', (req: express.Request, res: express.Response) => {
     const year = req.query.publicationYear;
     if (!bookName && !year) {
         return res.send(data);
-    } else if(bookName) {
+    } else if (bookName) {
         const result = data.filter(Book => {
             return Book.title.includes(bookName as string)
         });
         return res.send(result);
-    }else if(year){
+    } else if (year) {
         const result = data.filter(Year => {
             return Year.publicationYear === Number(year)
         });
